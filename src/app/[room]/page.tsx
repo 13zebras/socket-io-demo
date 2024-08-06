@@ -1,9 +1,7 @@
 'use client'
 
-// Original page, not to be used since we want dynamic routes
-
 import { useEffect, useState } from 'react'
-import { socket } from '../socket'
+import { socket } from '@/socket'
 import ConnectionManager from '@/app/components/ConnectionManager'
 import Events from '@/app/components/Events'
 import Form from '@/app/components/Form'
@@ -14,16 +12,26 @@ export type ChatEvent = {
 	room: string
 }
 
-export default function Home() {
+const user = Math.random().toString(36).substring(9).toUpperCase()
+
+export default function Page({ params }: { params: { room: string } }) {
 	const [isConnected, setIsConnected] = useState(false)
 	const [transport, setTransport] = useState('N/A')
 	const [roomId, setRoomId] = useState('')
+	const [userName, setUserName] = useState('')
 	const [chatEvents, setChatEvents] = useState<ChatEvent[]>([])
 
 	useEffect(() => {
 		if (socket.connected) {
 			onConnect()
 		}
+
+		const { room } = params
+
+		socket.emit('join-room', room, user)
+
+		setRoomId(room)
+		setUserName(user)
 
 		function onConnect() {
 			setIsConnected(true)
@@ -39,19 +47,33 @@ export default function Home() {
 			setTransport('N/A')
 		}
 
-		function onChatEvent(message: string, roomIdServer: string) {
-			const unixTimestamp = Date.now().toString()
-			setChatEvents((previous) => [...previous, { message: message, timeStamp: unixTimestamp, room: roomIdServer }])
-		}
-
 		socket.on('connect', onConnect)
 		socket.on('disconnect', onDisconnect)
-		socket.on('chat', onChatEvent)
 
 		return () => {
 			socket.off('connect', onConnect)
 			socket.off('disconnect', onDisconnect)
+		}
+	}, [])
+
+	useEffect(() => {
+		function onChatEvent(message: string, roomIdServer: string) {
+			const unixTimestamp = Date.now().toString()
+			setChatEvents((previous) => [...previous, { message: message, timeStamp: unixTimestamp, room: roomIdServer }])
+		}
+		function onUserConnectedEvent(roomId: string, userName: string) {
+			console.log('%c>>> userName, roomId:', 'color: #5f0', userName, roomId)
+			const newMessage = `${userName} has joined Room ${roomId}`
+			const unixTimestamp = Date.now().toString()
+			setChatEvents((previous) => [...previous, { message: newMessage, timeStamp: unixTimestamp, room: roomId }])
+		}
+
+		socket.on('chat', onChatEvent)
+		socket.on('user-connected', onUserConnectedEvent)
+
+		return () => {
 			socket.off('chat', onChatEvent)
+			socket.off('user-connected', onUserConnectedEvent)
 		}
 	}, [])
 
@@ -60,12 +82,16 @@ export default function Home() {
 			<Events events={chatEvents} />
 
 			<Form room={roomId} />
-			<div className='w-full max-w-[700px] flex flex-row items-center justify-start gap-4'>
-				<span className='text-gray-300 w-16'>Room:</span>
+			<div className='w-full max-w-[700px] flex flex-row items-center justify-start gap-2 font-mono'>
+				<span className='text-gray-300'>Room:</span>
 				<span className='text-gray-300'>{roomId}</span>
 			</div>
+			<div className='w-full max-w-[700px] flex flex-row items-center justify-start gap-2 font-mono'>
+				<span className='text-gray-300'>User:</span>
+				<span className='text-gray-300'>{userName}</span>
+			</div>
 			<div className='pt-8 flex flex-col text-zinc-300'>
-				<span className='font-bold pb-1'>Socket ID: {socket.id}</span>
+				<span className='font-bold pb-1 font-mono'>Socket ID: {socket.id}</span>
 				<span className=''>Status: {isConnected ? 'connected' : 'disconnected'}</span>
 				<span className=''>Transport: {transport}</span>
 			</div>
