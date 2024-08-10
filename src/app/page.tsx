@@ -3,6 +3,7 @@
 import RadixDialog from '@/components/ui/RadixDialog'
 import DaisyButtons from '@/components/ui/DaisyButtons'
 import DaisyDialog from '@/components/ui/DaisyDialog'
+import NextUIModal from '@/components/ui/NextUIModal'
 
 export default function Home() {
 	return (
@@ -14,6 +15,10 @@ export default function Home() {
 			<div className='flex flex-col items-center gap-8 w-full border-b-2 border-b-gray-700 pb-16'>
 				<h2 className='text-2xl'>Daisy UI Dialog</h2>
 				<DaisyDialog />
+			</div>
+			<div className='flex flex-col items-center gap-8 w-full border-b-2 border-b-gray-700 pb-16'>
+				<h2 className='text-2xl'>Next UI Modal</h2>
+				<NextUIModal />
 			</div>
 			<div className='inline-flex flex-col items-center gap-8 w-full border-b-2 border-b-gray-700 pb-16'>
 				<h2 className='text-2xl'>Radix</h2>

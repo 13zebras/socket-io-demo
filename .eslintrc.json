@@ -1,0 +1,22 @@
+{
+	"extends": [
+		"next/core-web-vitals",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:tailwindcss/recommended"
+	],
+	"parser": "@typescript-eslint/parser",
+	"plugins": [
+		"@typescript-eslint",
+		"tailwindcss",
+		"@stylistic"
+	],
+	"rules": {
+		"@styleistic/semi": "never",
+		"react/no-unescaped-entities": "off",
+		"@typescript-eslint/no-unused-vars": "error",
+		"@typescript-eslint/no-explicit-any": "warn",
+		"tailwindcss/classnames-order": "warn",
+		"tailwindcss/no-custom-classname": "warn",
+		"tailwindcss/no-contradicting-classname": "error"
+	}
+}

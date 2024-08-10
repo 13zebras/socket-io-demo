@@ -1,10 +1,11 @@
 import type { Config } from 'tailwindcss'
 import daisyui from 'daisyui'
+import { nextui } from '@nextui-org/theme'
 
 const config: Config = {
 	darkMode: ['class'],
 	content: [
-		'./pages/**/*.{ts,tsx}',
+		'./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
 		'./components/**/*.{ts,tsx}',
 		'./app/**/*.{ts,tsx}',
 		'./src/**/*.{ts,tsx}',
@@ -15,7 +16,7 @@ const config: Config = {
 			animation: {},
 		},
 	},
-	plugins: [daisyui],
+	plugins: [daisyui, nextui()],
 	// daisyUI config (these are the default values)
 	daisyui: {
 		themes: false, // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
