@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react'
-import { socket } from '../../socket'
-import { v4 as uuidv4 } from 'uuid'
 
 export default function Admin() {
 	const [room, setRoom] = useState('')

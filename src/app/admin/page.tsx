@@ -43,7 +43,7 @@ export default function Admin() {
 	}
 
 	return (
-		<div className='px-16 py-10 flex flex-col'>
+		<div className='px-16 py-10 inline-flex flex-col'>
 			<h1 className='text-3xl text-gray-300 pb-12'>Host Create Room</h1>
 			<div className='w-full h-12 max-w-[700px] flex flex-row items-center justify-start gap-4'>
 				<span ref={roomUrlRef} className='text-gray-300 font-mono text-lg'>
@@ -52,12 +52,21 @@ export default function Admin() {
 			</div>
 			<div className='w-full h-12 max-w-[700px] flex flex-row items-center justify-start py-4 mb-4'>
 				{roomUrl && (
-					<button type='button' onClick={copyToClipboard} className='w-48 px-4 py-1 border-2 border-green-700 text-zinc-300 text-sm rounded-xl bg-green-800 hover:bg-green-700 hover:text-zinc-100 active:border-green-600 active:bg-green-800 '>
+					<button
+						type='button'
+						onClick={copyToClipboard}
+						className='w-48 px-4 py-1 border-2 border-green-700 text-zinc-300 text-sm rounded-xl bg-green-800 hover:bg-green-700 hover:text-zinc-100 active:border-green-600 active:bg-green-800 '
+					>
 						Copy Room URL
 					</button>
 				)}
 			</div>
-			<button type='submit' onClick={handleRoom} disabled={disabled} className='w-48 py-1 border-2 border-violet-800 rounded-xl bg-violet-950 hover:bg-violet-900 active:border-violet-600 text-zinc-300 text-sm disabled:bg-violet-950/60 disabled:text-zinc-300/40 disabled:border-violet-950/30'>
+			<button
+				type='submit'
+				onClick={handleRoom}
+				disabled={disabled}
+				className='w-48 py-1 border-2 border-violet-800 rounded-xl bg-violet-950 hover:bg-violet-900 active:border-violet-600 text-zinc-300 text-sm disabled:bg-violet-950/60 disabled:text-zinc-300/40 disabled:border-violet-950/30'
+			>
 				Create New Room
 			</button>
 		</div>

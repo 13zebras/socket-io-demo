@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import './globals.css'
+import '@/styles/globals.css'
 
 export const metadata: Metadata = {
 	title: 'Socket.io Test',
@@ -12,7 +12,7 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang='en'>
+		<html lang='en' className='dark'>
 			<body className='bg-[#020307]'>{children}</body>
 		</html>
 	)

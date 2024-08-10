@@ -24,7 +24,7 @@
 			"jsxQuoteStyle": "single",
 			"semicolons": "asNeeded",
 			"quoteProperties": "asNeeded",
-			"lineWidth": 320,
+			"lineWidth": 100,
 			"bracketSpacing": true,
 			"bracketSameLine": false
 		}

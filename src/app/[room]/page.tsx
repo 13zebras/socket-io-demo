@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import { socket } from '@/socket'
-import ConnectionManager from '@/app/components/ConnectionManager'
-import Events from '@/app/components/Events'
-import Form from '@/app/components/Form'
+import ConnectionManager from '@/components/ConnectionManager'
+import Events from '@/components/Events'
+import Form from '@/components/Form'
 
 export type ChatEvent = {
 	message: string
