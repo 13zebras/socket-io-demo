@@ -9,6 +9,8 @@ const config: Config = {
 		'./components/**/*.{ts,tsx}',
 		'./app/**/*.{ts,tsx}',
 		'./src/**/*.{ts,tsx}',
+		'./node_modules/daisyui/dist/**/*.js',
+		'./node_modules/react-daisyui/dist/**/*.js',
 	],
 	theme: {
 		extend: {
@@ -19,7 +21,16 @@ const config: Config = {
 	plugins: [daisyui, nextui()],
 	// daisyUI config (these are the default values)
 	daisyui: {
-		themes: false, // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
+		themes: [
+			'night',
+			{
+				dark: {
+					...require('daisyui/src/theming/themes').dark,
+					'base-100': '#000000',
+				},
+			},
+			'halloween',
+		],
 		darkTheme: 'dark', // name of one of the included themes for dark mode
 		base: true, // applies background color and foreground color for root element by default
 		styled: true, // include daisyUI colors and design decisions for all components
